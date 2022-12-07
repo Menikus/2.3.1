@@ -1,7 +1,9 @@
 package web.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import web.dao.UserDao;
+import web.dao.UserDaoImpl;
 import web.model.User;
 
 import java.util.List;
@@ -31,8 +33,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void updateUser(int id, User updateUser) {
-        userDao.updateUser(id, updateUser);
+    public void updateUser(User updatedUser) {
+        userDao.updateUser(updatedUser);
     }
 
     @Override

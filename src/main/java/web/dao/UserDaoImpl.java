@@ -6,6 +6,9 @@ import web.model.User;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import org.hibernate.query.Query;
+
+
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -34,15 +37,14 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public void updateUser(int id, User updatedUser) {
-        User user = manager.find(User.class, id);
-        user.setName(updatedUser.getName());
-        user.setLastName(updatedUser.getLastName());
-        user.setAge(updatedUser.getAge());
+    public void updateUser(User updatedUser) {
+        manager.merge(updatedUser);
     }
 
     @Override
     public void deleteUser(int id) {
-        manager.remove(getUserById(id));
+        Query<User> query = (Query<User>) manager.createQuery("delete from User user where id =:userId");
+        query.setParameter("userId", id);
+        query.executeUpdate();
     }
 }

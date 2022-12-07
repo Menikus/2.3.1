@@ -37,9 +37,8 @@ public class UserController {
     }
 
     @PatchMapping("/{id}")
-    public String update(@ModelAttribute("user") User user,
-                         @PathVariable("id") int id) {
-        userService.updateUser(id, user);
+    public String update(@ModelAttribute("user") User user) {
+        userService.updateUser(user);
         return "redirect:/users";
     }
 
@@ -50,8 +49,7 @@ public class UserController {
     }
 
     @DeleteMapping("/{id}")
-    public String delete(@ModelAttribute("user") User user,
-                         @PathVariable("id") int id) {
+    public String delete(@PathVariable("id") int id) {
         userService.deleteUser(id);
         return "redirect:/users";
     }
